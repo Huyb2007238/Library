@@ -1,17 +1,17 @@
 
-const siteRouter = require('./site.route');
-const booksRouter = require('./books.route');
-// const adminRouter = require('./admin.route');
-const authRouter = require('./auth.route');
+// const siteRouter = require('./site.route');
+// const booksRouter = require('./books.route');
+const express = require('express');
+const adminRouter = require('./admin.route');
+const userRouter = require('./user.route');
 
 function route(app) {
-    // app.use('/admin', adminRouter);
+    //admin
+    app.use('/admin', adminRouter);
+    //user
+    app.use('/user', userRouter);
+    // app.use('/books', booksRouter);
 
-    app.use('/auth', authRouter);
-
-    app.use('/books', booksRouter);
-
-    app.use('/', siteRouter);
 }
 
 module.exports = route;

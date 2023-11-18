@@ -1,6 +1,6 @@
 <template>
     <div class="login-view">
-        <section class="vh-100" style="background-color: #9A616D;">
+        <section class="vh-100" style="background-color: #d99fac;">
             <div class="container h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col col-xl-10">
@@ -25,13 +25,13 @@
                                             </h5>
 
                                             <div class="form-outline mb-4">
-                                                <input type="text" id="username" class="form-control form-control-lg"
+                                                <input required="true" type="text" id="username" class="form-control form-control-lg"
                                                     v-model="login.username" />
                                                 <label class="form-label" for="username">Username</label>
                                             </div>
 
                                             <div class="form-outline mb-4">
-                                                <input type="password" id="pwd" class="form-control form-control-lg"
+                                                <input required="true" type="password" id="pwd" class="form-control form-control-lg"
                                                     v-model="login.password" />
                                                 <label class="form-label" for="pwd">Password</label>
                                             </div>
@@ -41,7 +41,7 @@
                                             </div>
 
                                             <p class="mb-5 pb-lg-2" style="color: #393f81;">
-                                                Don't have an account? <router-link to="/auth/register"
+                                                Don't have an account? <router-link to="/user/register"
                                                     style="color: #393f81;">Register here</router-link>
                                             </p>
 
@@ -72,14 +72,20 @@ export default {
     },
     methods: {
         async loginUser() {
-            await axios.post('http://localhost:8000/auth/login', this.login)
+            await axios.post('http://localhost:8000/user/login', this.login)
                 .then(res => {console.log(res.data);
                     if (res.status === 200) {
-                        window.alert('Đăng nhập thành công\nXin chào ' + res.data.name);
-                        const values = [res.data.name, res.data.position];
-                        localStorage.setItem('id', JSON.stringify(values));
-
-                        this.$router.push('/');
+                        const values = [res.data._id,res.data.name, res.data.position];
+                        if(res.data.position == "Thủ thư"){
+                            window.alert('Đăng nhập thành công với vai trò admin\nXin chào ' + res.data.name);
+                            localStorage.setItem('id', JSON.stringify(values));
+                            this.$router.push('/admin/books');
+                        }
+                        else{
+                            window.alert('Đăng nhập thành công \nXin chào ' + res.data.name);
+                            localStorage.setItem('id', JSON.stringify(values));
+                            this.$router.push('/');
+                        }
                     }
                     if (res.data.status == 404) {
                         window.alert("Sai tài khoản hoặc mật khẩu")

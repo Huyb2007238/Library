@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const {connect} = require('./config/db.js');
 const route =require('./routes/index.route.js')
+
 dotenv.config();
 connect();
 

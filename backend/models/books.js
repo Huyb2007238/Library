@@ -8,6 +8,7 @@ const bookSchema = new mongoose.Schema({
     typeBook: {type: String, required: true},
     shelf: {type: String, required: true},
     quantity:{type: Number, required: true},
+    image:{type: String, maxlength: 200},
 }, {collection: 'Books'});
 
 bookSchema.plugin(mongooseDelete,{

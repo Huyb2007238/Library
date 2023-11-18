@@ -44,56 +44,27 @@
                       <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mb-4">
                           <!-- Content -->
                           <h6 class="text-uppercase fw-bold mb-4">
-                              <i class="fas fa-gem me-3 text-white"></i>Thú Cưng HuyMeme
+                              <i class="fas fa-gem me-3 text-white"></i>Thư viện sách Meme
                           </h6>
                           <p>
-                              Thú Cưng HuyMeme là đơn vị đầu tiên tại Cần Thơ xây dựng thành công hệ sinh thái khép
-                              kín gồm trang trại chó mèo cảnh, cửa hàng thức ăn và phụ kiện thú cưng, phòng khám thú y,
-                              spa chó mèo..
+                              Thư viện sách Meme nơi kết nối trí thức
                           </p>
                       </div>
                       <!-- Grid column -->
 
                       <!-- Grid column -->
-                      <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                          <!-- Links -->
-                          <h6 class="text-uppercase fw-bold mb-4">
-                              Thú Cưng
-                          </h6>
-                          <p>
-                              Chó
-                          </p>
-                          <p>
-                              Mèo
-                          </p>
-                          <p>
-                              Hamster
-                          </p>
-                          <p>
-                              Thỏ
-                          </p>
-                      </div>
+                      
                       <!-- Grid column -->
 
                       <!-- Grid column -->
-                      <div class="col-md-7 col-lg-7 col-xl-7 mx-auto mb-4">
+                      <div class="col-md-8 col-lg-8 col-xl-8 mx-auto mb-5">
                           <!-- Links -->
                           <h6 class="text-uppercase fw-bold mb-4">
                               Chi Nhánh
                           </h6>
                           <p>
-                              Trụ sở chính Thú Cưng HuyMeme Ba Tháng Hai : 606/121 đường 3 tháng 2, phường Xuân Khánh,
+                            Đường 30 Tháng 4, 74/37 đường 30 tháng 4, phường An Phú,
                               quận Ninh Kiều, thành phố Cần Thơ.
-                          </p>
-                          <p>
-                              Thú Cưng HuyMeme Quang Trung: 171 Quang Trung, Phường 10, quận Gò Vấp, thành phố Hồ Chí
-                              Minh.
-                          </p>
-                          <p>
-                              Thú Cưng HuyMeme Tây Hồ: 81 đường Nghi Tàm, phường Yên Phụ, quận Tây Hồ, Hà Nội.
-                          </p>
-                          <p>
-                              Thú Cưng HuyMeme Đà Lạt: 108 Lý Nam Đế, phường 8, thành phố Đà Lạt, tỉnh Lâm Đồng.
                           </p>
                       </div>
                       <!-- Grid column -->
@@ -105,7 +76,7 @@
           <!-- Section: Links  -->
 
           <!-- Copyright -->
-          <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025);">
+          <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.234);">
               © 2023 Copyright: Trương Chấn Huy
           </div>
           <!-- Copyright -->

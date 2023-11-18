@@ -1,53 +1,48 @@
 <template>
-    <div class="edit-pet-view container">
-        <h3 class="text-uppercase mt-4 mb-4">Cập nhật thông tin thú cưng</h3>
+    <HeaderView />
+    <div class="edit-book-view container">
+        <h3 class="text-uppercase mt-4 mb-4">Cập nhật thông tin Sách</h3>
 
-        <form method="POST" @submit.prevent="updatePet">
+        <form method="POST" @submit.prevent="updatebook">
             <div class="form-row mb-4">
                 <div class="form-group col-md-2">
-                    <label for="id-pet">ID</label>
-                    <input type="text" class="form-control" id="id-pet" v-model="this.pet.ID">
+                    <label for="id-book">Mã số</label>
+                    <input type="text" class="form-control" id="id-book" v-model="this.book.idBook">
                 </div>
 
                 <div class="form-group col-md-4">
-                    <label for="name-breed">Giống</label>
-                    <input type="text" class="form-control" id="name-breed" v-model="this.pet.breed">
+                    <label for="name-Book">Tên sách</label>
+                    <input type="text" class="form-control" id="name-Book" v-model="this.book.nameBook">
                 </div>
 
                 <div class="form-group">
-                    <label for="color">Màu sắc</label>
-                    <input type="text" class="form-control" id="color" v-model="this.pet.color">
+                    <label for="author">Tác giả</label>
+                    <input type="text" class="form-control" id="author" v-model="this.book.author">
                 </div>
             </div>
 
             <div class="form-group mb-4">
-                <label class="form-label" for="price">Giá bán</label>
-                <input type="text" class="form-control" id="price" v-model="this.pet.price">
+                <label class="form-label" for="type-book">Thể loại</label>
+                <input type="text" class="form-control" id="type-book" v-model="this.book.typeBook">
             </div>
 
             <div class="form-group mb-4">
-                <label class="form-label" for="gender">Gender</label>
-                <select class="select" id="gender" v-model="this.pet.gender">
-                    <option disabled value="">Giới tính</option>
-                    <option>Đực</option>
-                    <option>Cái</option>
+                <label class="form-label" for="shelf">Gender</label>
+                <select class="select" id="shelf" v-model="this.book.shelf">
+                    <option>A1</option>
+                    <option>A2</option>
+                    <option>A3</option>
                 </select>
             </div>
 
             <div class="form-group mb-4">
-                <label class="form-label" for="typeOf">Thể loại</label>
-                <select class="select" id="typeOf" v-model="this.pet.typeOf">
-                    <option disabled value="">Thể loại</option>
-                    <option>Chó</option>
-                    <option>Mèo</option>
-                    <option>Hamster</option>
-                    <option>Thỏ</option>
-                </select>
+                <label class="form-label" for="quality">Số lượng</label>
+                <input type="number" class="form-control" id="quality" v-model="this.book.quantity" min="0">
             </div>
 
             <div class="form-group mb-4">
                 <label class="form-label" for="pathURL">Chọn hình ảnh</label><br>
-                <input type="file" name="name-file" id="pathURL">
+                <input type="file" name="name-file" id="pathURL" >
             </div>
 
             <button type="submit" class="btn btn-primary text-uppercase">
@@ -55,23 +50,30 @@
             </button>
         </form>
     </div>
+    <FooterView />
 </template>
 
 <script>
 
 import axios from 'axios'
+import HeaderView from '../components/HeaderView.vue';
+import FooterView from '../components/FooterView.vue';
 
 export default {
+    components: {
+        HeaderView,
+        FooterView
+    },
     data() {
         return {
-            pet: {
-                ID: null,
-                breed: null,
-                color: null,
-                gender: null,
-                typeOf: null,
-                price: null,
-                image: null
+            book: {
+                idBook: [],
+                nameBook: [],
+                author: [],
+                typeBook: [],
+                shelf: [],
+                quality: [],
+                image: []
             }
         }
     },
@@ -83,10 +85,14 @@ export default {
     },
 
     created() {
+        const x = JSON.parse(localStorage.getItem('id'))[2]
+        if (x !== 'Thủ thư') {
+            this.$router.push('/');
+        }
         axios
-            .get('http://localhost:3000/admin/pets/' + this.id + '/edit')
+            .get('http://localhost:8000/admin/books/' + this.id + '/edit')
             .then(res => {
-                this.pet = res.data;
+                this.book = res.data;
             })
             .catch(err => {
                 console.log(err)
@@ -94,27 +100,36 @@ export default {
     },
 
     methods: {
-        updatePet() {
-            axios.put('http://localhost:3000/pets/' + this.id, this.pet)
+        updatebook() {
+            const x = JSON.parse(localStorage.getItem('id'))[2]
+            if (x !== 'Thủ thư') {
+                this.$router.push('/');
+            }
+            // `http://localhost:8000/books/${this.id}`
+            axios
+                .put('http://localhost:8000/admin/books/' + this.id + '/edit', this.book)
                 .then(res => {
-                    if (res.data.status === 201) {
-                        this.$router.push('/admin/stored/pets');
+                    // console.log(this.book);
+                    console.log(res);
+                    if ( res.status === 200) {
+                        this.$router.push('/admin/books');
                         window.alert("Cập nhật thông tin thành công")
                     }
-                    else if (res.data.status === 501) {
+                    else if ( res.status === 500) {
                         window.alert("Cập nhật thông tin thất bại")
                     }
-
                 })
-                .catch(err => console.log(err))
+                .catch(err => console.error('Error updating book:', err))
         },
     }
 }
 </script>
 
 <style scoped>
-.edit-pet-view {
+.edit-book-view {
     margin: 16px auto;
+    margin-top: 100px;
+
 }
 
 .form-group label {
@@ -124,5 +139,9 @@ export default {
 .form-row {
     display: flex;
     justify-content: space-between;
+}
+
+#shelf{
+    margin-left: 10px;
 }
 </style>
