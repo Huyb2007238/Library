@@ -8,9 +8,8 @@ const userController = require('../controllers/userController')
 
 router.post("/login", authController.loginUser);
 
-router.post("/register", authController.registerUser);
 
-router.put('/:id/edit', userController.editUserpassword);
+router.post('/:id/edit', userController.editUserpassword);
 
 router.post('/books/borrow', borrowController.addBorrow);
 router.get('/', bookController.findAllBook);
@@ -20,7 +19,7 @@ router.get('/search/query', bookController.search)
 
 // router.get('/:id',userController.findUser)
 
-
+router.get('/:id/edit', userController.findBorrowUser)
 
 
 module.exports = router;

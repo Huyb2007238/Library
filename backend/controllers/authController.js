@@ -6,10 +6,7 @@ const authController = {
     //register
     registerUser: async(req,res)=>{ 
         try {
-            // const salt = await bcrypt.genSalt(10);
-            // const hashed = await bcrypt.hash(req.body.password, salt);
-
-            //create new user
+            
             const newUser = await new User({
                 username: req.body.username,
                 password: req.body.password,
@@ -17,16 +14,14 @@ const authController = {
                 position: req.body.position,
                 phone: req.body.phone
             });
-            //....
+            
             const newListBorrow = await new ListBorrow({
                 user :{
                     code : req.body.username,
-                    fullname : req.body.name
+                    fullname : req.body.name, 
                 },
                 books :[]
             });
-        //save to DB\
-        //...
         const listborrow = await newListBorrow.save();
         const user = await newUser.save();
         res.status(200).json(user)

@@ -9,7 +9,7 @@ import UserList from '../views/UserList.vue';
 import ProfileView from '../views/ProfileView.vue';
 import BorrowView from '../views/BorrowView.vue';
 import AddBorrowView from '../views/AddBorrowView.vue';
-
+import EditBorrowView from '../views/EditBorrowView.vue';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,58 +17,69 @@ const router = createRouter({
         {
             path: '/',
             name: 'home',
-            component: HomeView
+            component: HomeView,
         },
         {
             path: '/admin/books/edit',
             name: 'add-book',
-            component: AddBookView
+            component: AddBookView,
         },
         {
             path: '/admin/books',
             name: 'stored-book',
-            component: StoredBook
+            component: StoredBook,
         },
         {
             path: '/admin/user/edit',
             name: 'profile',
-            component: ProfileView
+            component: ProfileView,
         },
         {
             path: '/user/login',
             name: 'login',
-            component: LoginView
+            component: LoginView,
         },
         {
             path: '/user/register',
             name: 'register',
-            component: RegisterView
+            component: RegisterView,
         },
         {
             path: '/admin/users',
             name: 'userlist',
-            component: UserList
+            component: UserList,
         },
         {
             path: '/admin/user/:id/edit',
             name: 'edit-user',
-            component: ProfileView
+            component: ProfileView,
         },
         {
             path: '/admin/books/:id/edit',
             name: 'edit-book',
-            component: EditBookView
+            component: EditBookView,
         },
         {
-            path:'/admin/borrow',
-            name:'borrow-book',
-            component:BorrowView,
-        }, {
-            path: '/admin/borrows',
-            name: 'add-borrow',
-            component: AddBorrowView
+            path: '/admin/borrows/edit',
+            name: 'borrow-book',
+            component: BorrowView,
         },
-    ]
-})
+        // {
+        //     path: '/admin/borrows',
+        //     name: 'add-borrow',
+        //     component: AddBorrowView,
+        // },
+        {
+            path: '/admin/borrows/:id',
+            name: 'add-borrow',
+            component: AddBorrowView,
+        },
+        {
+            path: '/admin/borrows/:id/edit',
+            name: 'edit-borrow',
+            component: EditBorrowView,
+        },
+    ],
+});
 
-export default router
+export default router;

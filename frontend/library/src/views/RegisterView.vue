@@ -17,7 +17,7 @@
                                                 <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                                 <div class="form-outline flex-fill mb-0">
                                                     <input type="text" id="username" class="form-control"
-                                                        v-model="posts.username" />
+                                                        v-model="posts.username" required="true"/>
                                                 </div>
                                             </div>
 
@@ -26,16 +26,15 @@
                                                 <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                                                 <div class="form-outline flex-fill mb-0">
                                                     <input type="password" id="password" class="form-control"
-                                                        v-model="posts.password" />
+                                                        v-model="posts.password" required="true"/>
                                                 </div>
                                             </div>
-                                            
-                                            <label class="form-label" for="name"></label>
+
+                                            <label class="form-label" for="typeOf">Vị trí</label>
                                             <div class="d-flex flex-row align-items-center mb-4">
-                                                <select class="form-select" aria-label="Disabled select example">
-                                                    <option selected>Select position</option>
-                                                    <option value="Thủ thư">Thủ Thư</option>
-                                                    <option value="Sinh viên">Sinh Viên</option>
+                                                <select class="form-select" id="typeOf" v-model="posts.position" required="true" >
+                                                    <option value="Sinh viên">Sinh viên</option>
+                                                    <option value="Thủ thư">Thủ thư</option>
                                                 </select>
                                             </div>
 
@@ -44,7 +43,7 @@
                                                 <i class="fas fa-signature fa-lg me-3 fa-fw"></i>
                                                 <div class="form-outline flex-fill mb-0">
                                                     <input type="text" id="name" class="form-control"
-                                                        v-model="posts.name" />
+                                                        v-model="posts.name" required="true"/>
                                                 </div>
                                             </div>
 
@@ -53,7 +52,7 @@
                                                 <i class="fas fa-phone  fa-lg me-3 fa-fw"></i>
                                                 <div class="form-outline flex-fill mb-0">
                                                     <input type="text" id="phone" class="form-control"
-                                                        v-model="posts.phone" />
+                                                        v-model="posts.phone" required="true"/>
                                                 </div>
                                             </div>
 
@@ -81,10 +80,12 @@
         </section>
     </div>
 </template>
+
 <script>
 
-import axios from 'axios';
-
+import axios from 'axios'
+import HeaderView from '../components/HeaderView.vue';
+import FooterView from '../components/FooterView.vue';
 export default {
     data() {
         return {
@@ -97,20 +98,26 @@ export default {
             }
         }
     },
+    components: { HeaderView, FooterView },
 
     methods: {
         registerUser() {
-            axios.post('http://localhost:8000/auth/register', this.posts)
+            axios.post('http://localhost:8000/admin/register', this.posts)
                 .then(res => {
-                    if (res.data.status === 200) {
+                    if (res.status === 200) {
                         window.alert("Đăng ký thành công");
-                        this.$router.push('/auth/login')
+                        window.location.reload();
+                        // this.$router.push('/user/login')
                     }
-                    else if (res.data.status === 500) {
+                    else if (res.status === 500) {
                         window.alert("Đăng ký thất bại");
+                    }
+                    else{
+                        window.alert("Thông tin nhập đã có");
                     }
                 })
                 .catch(err => console.log(err))
+                
         },
         comebackHome() {
             this.$router.push("/");

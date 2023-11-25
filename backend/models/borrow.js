@@ -11,7 +11,7 @@ const borrowSchema = new mongoose.Schema({
     trangthai:{type:String, require:  true},
     userId: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'Users'
     }],
 },{collection: 'Borrow'});
 

@@ -94,6 +94,14 @@ const findBookID = async (req, res) => {
     }
 };
 
+const findAuthor = async(req,res) =>{
+    try {
+        const findauthor =await Book.findOne({author})
+        
+    } catch (error) {
+        
+    }
+}
 module.exports = {
     addBook,
     deleteBook,

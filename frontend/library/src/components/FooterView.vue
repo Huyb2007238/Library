@@ -1,5 +1,5 @@
 <template >
-  <div>
+  <div class="footer">
       <!-- Footer -->
       <footer class="text-center text-lg-start bg-secondary text-white">
           <!-- Section: Social media -->
@@ -89,4 +89,9 @@ export default {
 
 }
 </script>
-<style scoped></style>
+<style scoped>
+.footer{
+    margin-bottom: auto;
+    /* width: max-content  ; */
+}
+</style>

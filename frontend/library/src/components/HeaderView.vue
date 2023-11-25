@@ -46,11 +46,17 @@
 
                             <div v-if="this.role == 'Thủ thư'" class="dropdown-menu dropdown-menu-right mt-2 menu-admin"
                                 aria-labelledby="navbarDropdown">
-                                <router-link to="/admin/borrows" class="dropdown-item text-dark menu-dropdown-user">
+                                <!-- <router-link to="/admin/borrows" class="dropdown-item text-dark menu-dropdown-user">
                                     Mượn sách
-                                </router-link>
+                                </router-link> -->
                                 <router-link to="/admin/books/edit" class="dropdown-item text-dark menu-dropdown-user">
                                     Thêm Sách
+                                </router-link>
+                                <router-link to="/user/register" class="dropdown-item text-dark menu-dropdown-user">
+                                    Đăng ký
+                                </router-link>
+                                <router-link to="/admin/borrows/edit" class="dropdown-item text-dark menu-dropdown-user">
+                                    Mượn Trả
                                 </router-link>
                                 <router-link to="/admin/books" class="dropdown-item text-dark  menu-dropdown-user">
                                     Xem kho
@@ -58,6 +64,7 @@
                                 <router-link to="/admin/users" class="dropdown-item text-dark  menu-dropdown-user">
                                     Danh sách người dùng
                                 </router-link>
+
                                 <router-link v-on:click="logoutUser()" to="/"
                                     class="dropdown-item text-dark btn btn-link ">Đăng xuất</router-link>
 
@@ -68,7 +75,7 @@
                                     class="dropdown-item text-dark  menu-dropdown-user">
                                     Thông tin cá nhân
                                 </router-link>
-                                <router-link v-on:click="logoutUser()" class="dropdown-item text-dark" to="/">
+                                <router-link  v-on:click="logoutUser()" class="dropdown-item text-dark" to="/">
                                     <i class="fas fa-sign-out-alt "></i>
                                     Đăng xuất
                                 </router-link>
@@ -107,7 +114,7 @@ export default {
         logoutUser() {
             localStorage.clear();
             // window.location.reload();
-            this.$router.push("/");
+            this.$router.push("/user/login");
         }
     },
 

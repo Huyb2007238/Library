@@ -1,8 +1,7 @@
 <template>
     <HeaderView />
 
-    <div class="container light-style flex-grow-1 container-p-y" style="height: 541px">
-
+    <div class="container light-style flex-grow-1 container-p-y" style="height: 600px">
         <h4 class="font-weight-bold py-3 mb-4" style="height: 62px">
             Account settings
         </h4>
@@ -43,45 +42,85 @@
                             </div>
 
                         </div>
-                        <div class="tab-pane fade" id="account-change-password" method="PUT" @submit.prevent="updatepass">
+                        <from class="tab-pane fade" id="account-change-password">
                             <div class="card-body pb-2">
 
                                 <div class="form-group">
                                     <label class="form-label">Current password</label>
-                                    <input type="password" class="form-control" v-model="pass.currentpassword">
+                                    <input type="text" class="form-control" v-model="pass.username">
                                 </div>
 
                                 <div class="form-group">
                                     <label class="form-label">New password</label>
-                                    <input type="password" class="form-control" v-model="pass.newpassword">
+                                    <input type="password" class="form-control" v-model="pass.password">
                                 </div>
 
                                 <div class="form-group">
                                     <label class="form-label">Repeat new password</label>
-                                    <input type="password" class="form-control" v-model="pass.repeatlaypassword">
+                                    <input type="password" class="form-control" v-model="pass.newpassword">
                                 </div>
                                 <div class="text-right mt-3 " style="height: 62px">
-                                    <button type="submit" class="btn btn-primary">Save changes</button>&nbsp;
-                                    <button type="button" class="btn btn-outline-dark text-dark">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
                                 </div>
                             </div>
-                        </div>
+                        </from>
                         <div class="tab-pane fade" id="book-borrow">
-                            <div class="form-group">
-                                <label class="form-label">Username</label>
-                                <input type="text" class="form-control mb-1" value="this.user.username">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Name</label>
-                                <input type="text" class="form-control" value="Nelle Maxwell">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">E-mail</label>
-                                <input type="text" class="form-control mb-1" value="nmaxwell@mail.com">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Company</label>
-                                <input type="text" class="form-control" value="Company Ltd.">
+                            <div>
+                                <table class="table table-bordered" >
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col">STT</th>
+                                            <th scope="col">Mã sách</th>
+                                            <th scope="col">Ngày mượn</th>
+                                            <th scope="col">Hạn Trả</th>
+                                            <th scope="col">Ngày trả</th>
+                                            <th scope="col">Trạng thái </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>CTU0001</td>
+                                            <td>2023-11-15</td>
+                                            <td>2021-12-31</td>
+                                            <td>2022-02-01</td>
+                                            <td>Đã trả</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>CTU0002</td>
+                                            <td>2023-11-15</td>
+                                            <td>2021-12-31</td>
+                                            <td>2022-02-01</td>
+                                            <td>Đã trả</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td>CTU0003</td>
+                                            <td>2023-11-15</td>
+                                            <td>2021-12-31</td>
+                                            <td>2022-02-01</td>
+                                            <td>Đã trả</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">4</th>
+                                            <td>CTU0004</td>
+                                            <td>2023-11-15</td>
+                                            <td>2021-12-31</td>
+                                            <td>2022-02-01</td>
+                                            <td>Đã trả</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">5</th>
+                                            <td>CTU0005</td>
+                                            <td>2023-11-15</td>
+                                            <td>2021-12-31</td>
+                                            <td>2022-02-01</td>
+                                            <td>Đã trả</td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -100,20 +139,21 @@
 import HeaderView from '../components/HeaderView.vue';
 import FooterView from '../components/FooterView.vue';
 import axios from 'axios';
+
 export default {
     data() {
         return {
             user: {
-                username: null,
-                password: null,
-                name: null,
-                position: null,
-                phone: null
+                username: '',
+                password: '',
+                name: '',
+                position: '',
+                phone: ''
             },
             pass: {
-                currentpassword: null,
-                newpassword: null,
-                repeatlaypassword: null
+                username: '',
+                password: '',
+                newpassword: ''
             }
 
         }
@@ -132,33 +172,35 @@ export default {
         axios.get('http://localhost:8000/admin/user/' + this.id + '/edit')
             .then(res => {
                 this.user = res.data;
-                console.log(localStorage.getItem("id")[0]);
+                // console.log(localStorage.getItem("id")[0]);
+                console.log();
             })
             .catch(err => {
                 console.log(err)
             })
+
     },
 
     methods: {
         changePassword() {
-            axios.put(`http:localhost:8000/user/${id}/edit`)
+            // if(this.pass.newpassword == this.pass.repeatpassword){
+            console.log(this.pass.new.password);
+            axios.post(`http:localhost:8000/user/${id}/edit`)
                 .then(res => {
-                    newpassword = user.password
-                    const test1 = this.pass.newpassword !== this.pass.repeatlaypassword
-                    const test2 = this.user.password === this.pass.currentpassword
-                    if(test1 && test2){
-                        if(res.status === 200){
-                            window.alert("Cập nhật thông tin thành công")
-                        }
-                        else (res.status ==500)
-                            window.alert("Cập nhật không thành công")
+                    if (res.status === 200) {
+                        window.alert("Cập nhật thông tin thành công")
                     }
+                    else (res.status == 500)
+                    window.alert("Cập nhật không thành công")
                 })
+            // }else{
+            //     window.alert("Mật khẩu không trùng khớp")
+            // }
 
         },
 
         updateuser() {
-            axios.put('http://localhost:8000/admin/user/' + this.id + '/edit')
+            axios.put('http://localhost:8000/admin/user/' + this.id + '/edit', this.pass)
                 .then(res => {
                     if (res.data.status === 201) {
                         this.$router.push('/admin/stored/user');
@@ -268,5 +310,8 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
 .light-style .account-settings-links .list-group-item {
     padding: 0.85rem 1.5rem;
     border-color: rgba(24, 28, 33, 0.03) !important;
+}
+.table, th, td {
+border: 1px solid;
 }
 </style>

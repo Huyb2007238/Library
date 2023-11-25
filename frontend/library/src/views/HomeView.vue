@@ -8,12 +8,9 @@
             <input type="text" id="name" v-model="search" @keyup="filteredList">
 
         </div>
-        <!-- Search form -->
-        <!-- <input class="form-control" type="text" placeholder="Search" aria-label="Search" v-model="input"
-            style="width: 700px;" /> -->
 
         <div class="sections row top-10px">
-            <template v-if="!this.search" v-for="(book, index) in books" :key="index">
+                <template v-if="!this.search" v-for="(book, index) in books" :key="index">
 
                 <button class="card" style="width: 300px;" data-toggle="modal" data-target="#exampleModalCenter"
                     @click="getbyid(book._id)">
@@ -118,7 +115,7 @@ import axios from 'axios'
 import staticPath from '../assets/staticPath';
 import HeaderView from '../components/HeaderView.vue';
 import FooterView from '../components/FooterView.vue';
-import { ref } from "vue";
+
 export default {
     data() {
         return {
@@ -164,7 +161,7 @@ export default {
                 .catch(err => console.log(err));
         },
         assignValues() {
-            this.booksFilter = [...this.books.data]
+            this.booksFilter = [...this.books]
         },
         filteredList() {
             if (this.search == '')
@@ -175,23 +172,6 @@ export default {
             // console.log(this.booksFilter);
         },
     },
-
-    // search(){
-    //     const searchInput = document.querySelector('. input')
-    //     console.log(document.querySelector('.input'));
-    //     searchInput.addEventListener('input',function(e){
-    //         const txtSearch = e.target.value.trim().toLowerCase()
-    //         const listProductDOM = document.querySelectorAll('.product')
-    //         listProductDOM.forEach(item =>{
-    //             if(item.innerText.toLowerCase().includes(txtSearch)){
-    //                 item.classList.remove('hide')
-    //             }
-    //             else {
-    //                 item.classList.add('hide')
-    //             }
-    //         })
-    //     })
-    // }
 }
 
 </script>

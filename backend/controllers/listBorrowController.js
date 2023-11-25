@@ -1,49 +1,82 @@
 const listBorrow = require('../models/listBorrow');
-const ListBorrow = require('../models/listBorrow');
-
+// const ListBorrow = require('../models/listBorrow');
 
 const addBorrow = async (req, res) => {
     const { user, books } = req.body;
     try {
-        const add = await ListBorrow.findOne({ user });
-        if (add) {
-            let anotherbooks = add.books.concat(books); // Using the concat() method
-            add.books = anotherbooks.slice(); // Assign the values of array1 to array2
+        const add = await listBorrow.findById(req.params.id);
+        req.params.id
+        // if (!add) {
+        //     // If the record doesn't exist, create a new one
+        //     const newRecord = new listBorrow({
+        //         user,
+        //         books
+        //     });
+        //     await newRecord.save();
+        //     return res.status(200).json(newRecord);
+        // }
+
+        // If the record exists, update the books array
+        let anotherBooks = add.books.concat(books);
+        add.books = anotherBooks.slice();
+
+        // Check if the record is modified before saving
+        if (add.isModified('books')) {
+            await add.save();
         }
-        await add.save();
+
         return res.status(200).json(add);
     } catch (error) {
         return res.status(500).json(error);
     }
 };
 
+
 const updateBorrow = async (req, res) => {
     const { user, books } = req.body;
-    const listBorrowDocument = await ListBorrow.findById(user._id);
-    // console.log(listBorrowDocument)
     try {
         const edit = await listBorrow.findOneAndUpdate(
-            { user },
+            { user   },
             { books },
             { new: true },
         );
-        return res.status(200).json(edit);
+        console.log(edit);
+        return res.status(200).json({edit});
     } catch (error) {
         return res.status(500).json(error);
     }
 };
+
 const deleteBorrow = async (req, res) => {
+    try {
+        const id = await listBorrow.findByIdAndDelete(req.params.id);
+        // console.log(id);
+        return res.status(200).json(id);
+    } catch (error) {
+        return res.status(500).json(error);
+    }
+};
+
+const  findBorrowID = async (req, res) => {
+    try {
+        const findborrow = await listBorrow.findById(req.params.id);
+        // console.log(findBook);
+        return res.status(200).json(findborrow);
+    } catch (error) {
+        return res.status(500).json(error);
+    }
+};
+const findBorrowDetail = async (req, res) => {
     const { user, books } = req.body;
     try {
-        const add = await ListBorrow.findOne(req.parmas.id);
-        console.log(add);
-        if (add) {
-            const idbok = await listBorrow.findByIdAndDelete({books})
-            console.log(idbok);
-            return res.status(200).json(idbok);
-        } else return res.status(404).json('Không tìm thấy');
-    } catch (error) {
-        return res.status(500).json(error);
-    }
+        const usr = await listBorrow.findOne({user});
+        if (usr) {
+            console.log(usr);
+            const borrow = await usr.books.id(req.params.id);
+            return res.status(200).json(borrow);
+        }
+    } catch (error) {res.status(500).json(error)}
 };
-module.exports = { addBorrow, updateBorrow, deleteBorrow };
+
+
+module.exports = { addBorrow, updateBorrow, deleteBorrow, findBorrowID, findBorrowDetail };

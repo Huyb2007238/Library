@@ -1,4 +1,5 @@
 const User = require("../models/user")
+const listBorrow = require("../models/listBorrow")
 
 const addUser = async (req, res) => {
     const {username,password,name,position,phone    } =req.body;
@@ -33,11 +34,24 @@ const editUser = async (req,res) =>{
     }
 }
 const editUserpassword = async (req,res) =>{
-    const {username,password} = req.body;
-    console.log(req.body._id);
+    const {username,password,newpassword} = req.body;
+    console.log(username,password,newpassword);
     try {
-        const edit =await User.findOneAndUpdate({username},{password}, {new: true});
-        return res.status(200).json(edit)
+        const user = await User.findOne({username})
+        console.log(user);
+
+        if(user){
+            const value = await password === user.password
+            console.log(value);
+            if(value){
+                user.password = newpassword
+                await user.save();
+                res.status(200).json(username)
+                console.log(user);
+            }
+            
+        }
+        else res.status(404).json("User not found!!")
     } catch (error) {
         return res.status(500).json(error)
     }
@@ -65,4 +79,17 @@ const findUserID = async(req, res) =>{
         return res.status(500).json(error)
     }
 }
-module.exports = {addUser,findUser,findUserID,deleteUser,editUser,editUserpassword};
+
+const findBorrowUser = async(req,res) =>{
+    try {
+        const user = await User.findById(req.params.id)
+        const borrow = await listBorrow.find(user.username)
+        if(user && borrow){
+            console.log("hêlo");
+        }
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+
+}
+module.exports = {addUser,findUser,findUserID,deleteUser,editUser,editUserpassword,findBorrowUser};

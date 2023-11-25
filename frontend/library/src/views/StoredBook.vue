@@ -1,7 +1,11 @@
 <template>
     <HeaderView></HeaderView>
 
+
     <div class="stored-books-view container">
+        <div class="grid wide">
+            <input type="text" id="name" v-model="search" @keyup="filteredList">
+        </div>
         <table class="table table-bordered">
             <thead class="thead-dark">
                 <tr class="text-uppercase">
@@ -16,7 +20,7 @@
                 </tr>
             </thead>
 
-            <tbody v-for="(books, index) in books" :key="index">
+            <tbody v-if="!this.search" v-for="(books, index) in books" :key="index">
                 <tr class="text-justify">
                     <th scope="row">{{ index + 1 }}</th>
                     <td>{{ books.idBook }}</td>
@@ -25,12 +29,30 @@
                     <td>{{ books.typeBook }}</td>
                     <td>{{ books.shelf }}</td>
                     <td>{{ books.quantity }}</td>
-                    <td>{{ books._id }}</td>
-                    
+                    <!-- <td>{{ books._id }}</td> -->
+
                     <td>
                         <router-link :to="'/admin/books/' + books._id + '/edit'" class="btn btn-link">Sửa</router-link>
-                        <a href="" class="btn btn-link" @click="getIdBook(books._id)" :data-id="books._id" data-toggle="modal"
-                            data-target="#delete-book-modal">Xóa</a>
+                        <a href="" class="btn btn-link" @click="getIdBook(books._id)" :data-id="books._id"
+                            data-toggle="modal" data-target="#delete-book-modal">Xóa</a>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody v-if="this.search" v-for="(books, index) in booksFilter" :key="index">
+                <tr class="text-justify">
+                    <th scope="row">{{ index + 1 }}</th>
+                    <td>{{ books.idBook }}</td>
+                    <td>{{ books.nameBook }}</td>
+                    <td>{{ books.author }}</td>
+                    <td>{{ books.typeBook }}</td>
+                    <td>{{ books.shelf }}</td>
+                    <td>{{ books.quantity }}</td>
+                    <!-- <td>{{ books._id }}</td> -->
+
+                    <td>
+                        <router-link :to="'/admin/books/' + books._id + '/edit'" class="btn btn-link">Sửa</router-link>
+                        <a href="" class="btn btn-link" @click="getIdBook(books._id)" :data-id="books._id"
+                            data-toggle="modal" data-target="#delete-book-modal">Xóa</a>
                     </td>
                 </tr>
             </tbody>
@@ -70,11 +92,14 @@ import FooterView from '../components/FooterView.vue';
 
 export default {
     data() {
-        return { 
-            id:'',
+        return {
+            id: '',
             books: [],
-            idBook: []
-           
+            idBook: [],
+            input: '',
+            search: '',
+            booksFilter: []
+
         };
     },
     async created() {
@@ -106,6 +131,14 @@ export default {
                 })
                 .catch(err => console.log(err));
         },
+        filteredList() {
+            if (this.search == '')
+                this.booksFilter = this.books
+            else {
+                this.booksFilter = this.books.filter(item => item.nameBook.toLowerCase().includes(this.search));
+            }
+            // console.log(this.booksFilter);
+        },
     },
     components: { HeaderView, FooterView }
 }
@@ -120,5 +153,19 @@ export default {
 
 .btn.btn-link {
     text-decoration: none;
+}
+
+input {
+    display: block;
+    width: 350px;
+    margin: 20px auto;
+    padding: 10px 45px;
+    background: white no-repeat 15px center;
+    background-size: 15px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+        rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 </style>

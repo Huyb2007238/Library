@@ -40,10 +40,10 @@
                                                 <button class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
                                             </div>
 
-                                            <p class="mb-5 pb-lg-2" style="color: #393f81;">
+                                            <!-- <p class="mb-5 pb-lg-2" style="color: #393f81;">
                                                 Don't have an account? <router-link to="/user/register"
                                                     style="color: #393f81;">Register here</router-link>
-                                            </p>
+                                            </p> -->
 
                                         </form>
                                     </div>
@@ -75,7 +75,7 @@ export default {
             await axios.post('http://localhost:8000/user/login', this.login)
                 .then(res => {console.log(res.data);
                     if (res.status === 200) {
-                        const values = [res.data._id,res.data.name, res.data.position];
+                        const values = [res.data._id,res.data.name, res.data.position,res.data.username];
                         if(res.data.position == "Thủ thư"){
                             window.alert('Đăng nhập thành công với vai trò admin\nXin chào ' + res.data.name);
                             localStorage.setItem('id', JSON.stringify(values));

@@ -108,7 +108,7 @@ export default {
 
                 })
                 .catch(err => console.log(err));
-            // window.alert("Thêm sách thành công");
+            // window.alert("Thông tin nhập đã có");
         },
         comebackHome() {
             this.$router.push("/");

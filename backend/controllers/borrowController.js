@@ -10,7 +10,7 @@ const addBorrow = async (req, res) => {
         dateDue,
         dateReturn,
         trangthai,
-        userId
+        
     } = req.body;
     try {
         const add = await Borrow.create({
@@ -21,7 +21,6 @@ const addBorrow = async (req, res) => {
             dateDue,
             dateReturn,
             trangthai,
-            userId
         });
         console.log(add);
         return res.status(201).json(add);

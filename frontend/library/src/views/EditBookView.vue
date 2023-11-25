@@ -7,23 +7,23 @@
             <div class="form-row mb-4">
                 <div class="form-group col-md-2">
                     <label for="id-book">Mã số</label>
-                    <input type="text" class="form-control" id="id-book" v-model="this.book.idBook">
+                    <input type="text" class="form-control" id="id-book" v-model="this.book.idBook" disabled>
                 </div>
 
                 <div class="form-group col-md-4">
                     <label for="name-Book">Tên sách</label>
-                    <input type="text" class="form-control" id="name-Book" v-model="this.book.nameBook">
+                    <input type="text" class="form-control" id="name-Book" v-model="this.book.nameBook" disabled>
                 </div>
 
                 <div class="form-group">
                     <label for="author">Tác giả</label>
-                    <input type="text" class="form-control" id="author" v-model="this.book.author">
+                    <input type="text" class="form-control" id="author" v-model="this.book.author" disabled >
                 </div>
             </div>
 
             <div class="form-group mb-4">
                 <label class="form-label" for="type-book">Thể loại</label>
-                <input type="text" class="form-control" id="type-book" v-model="this.book.typeBook">
+                <input type="text" class="form-control" id="type-book" v-model="this.book.typeBook" disabled>
             </div>
 
             <div class="form-group mb-4">
@@ -110,7 +110,7 @@ export default {
                 .put('http://localhost:8000/admin/books/' + this.id + '/edit', this.book)
                 .then(res => {
                     // console.log(this.book);
-                    console.log(res);
+                    console.log(res.data);
                     if ( res.status === 200) {
                         this.$router.push('/admin/books');
                         window.alert("Cập nhật thông tin thành công")
@@ -120,6 +120,7 @@ export default {
                     }
                 })
                 .catch(err => console.error('Error updating book:', err))
+                window.alert("Thông tin nhập đã có");
         },
     }
 }
