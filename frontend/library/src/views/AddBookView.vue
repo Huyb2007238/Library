@@ -28,7 +28,7 @@
             </div>
 
             <div class="form-group mb-4">
-                <label class="form-label" for="shelf">Gender</label>
+                <label class="form-label" style="margin-right: 10px;" for="shelf">Vị trí </label>
                 <select required="true" class="select" id="shelf" v-model="posts.shelf">
                     <option>A1</option>
                     <option>A2</option>

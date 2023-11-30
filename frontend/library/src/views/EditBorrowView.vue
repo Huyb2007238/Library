@@ -3,7 +3,7 @@
     <div class="add-borrow container">
         <h3 class="text-uppercase mt-4 mb-4 ">Thêm mượn sách</h3>
 
-        <form method="PUT" @submit.prevent="updateBorrow()" action="">
+        <form method="POST" @submit.prevent="updateBorrow()" action="">
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputID">ID người mượn</label>
